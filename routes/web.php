@@ -22,8 +22,14 @@ Route::group(['middleware' => 'web'], function() {
 });
 
 
-Route::get('/lista',  [App\Http\Controllers\UsuariosController::class, 'index']);
+Route::get('/lista',  [App\Http\Controllers\UsuariosController::class, 'index'])->name('listar')->middleware('auth');
 
-Route::get('/cadastrar',  [App\Http\Controllers\UsuariosController::class, 'adicionarForm']);
+Route::get('/cadastrar',  [App\Http\Controllers\UsuariosController::class, 'adicionarForm'])->middleware('auth');
 
-Route::post('/salvarUsuario',  [App\Http\Controllers\UsuariosController::class, 'store']);
+Route::post('/salvarUsuario',  [App\Http\Controllers\UsuariosController::class, 'store'])->middleware('auth');
+
+Route::get('/atualizar/{id}',  [App\Http\Controllers\UsuariosController::class, 'edit'])->middleware('auth');
+
+Route::post('/atualizar/{id}/update',  [App\Http\Controllers\UsuariosController::class, 'update'])->middleware('auth');
+
+Route::delete('/deletar/{id}',  [App\Http\Controllers\UsuariosController::class, 'delete'])->middleware('auth');

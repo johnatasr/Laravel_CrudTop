@@ -15,6 +15,8 @@
                     @endif
 
                     <h1>Lista de usuários</h1>
+
+                    <a href="{{ url('cadastrar') }}">Adicionar novo usuário</a>
                   
                     <table class="table">
                         <thead>
@@ -31,15 +33,33 @@
                                     <th scope="row">{{$u->nome}}</th>
                                     <td>{{$u->email}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                        <a href="atualizar/{{$u->id}}">
+                                            <button type="button" class="btn btn-success">
+                                            
+                                                <i class="fas fa-edit"></i>
+                                            
+                                            </button>
+                                        </a>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                        <form action="deletar/{{ $u->id }}" method="post"> 
+                                            @csrf
+                                            @method('delete')
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach   
                         </tbody>
                     </table>
+                    
+                    @if($msgVars)
+                        <div class="{{ $msgVars->class }}" role="alert">
+                            {{ $msgVars->msg }}
+                        </div>
+                    @endif
 
                 </div>
             </div>
